@@ -1,0 +1,43 @@
+[
+    {
+        "_type": "user",
+        "_id": 1,
+        "privilege_level": "Operator",
+
+        "authorized_tags": ["icc"],
+        "tags": ["icc"],
+
+        "password_hash": null,
+        
+        "authorized_providers": {
+            "linkedin": "http://linkedin.com/...",
+            "github": "http://github.com/..."
+        },
+        
+        "personal_data": 5642
+    },
+
+    {
+        "_type": "non-personal-data",
+        "_id": 1,
+        "personal_id": 5642,
+        
+        "providers": {
+
+        }
+    },
+
+
+    {
+        "_type": "personal-data",
+        "_id": 5642,
+        
+        "mail": "keskinhaka@eisti.eu",
+        "firstname": "Hakan",
+        "lastname": "Keskin",
+
+        "providers": {
+
+        }
+    }
+]
