@@ -8,7 +8,7 @@ import { StudentsVizComponent } from './students-viz/students-viz.component';
 import { GuestGuard } from './guards/guest.guard';
 import { StudentGuard } from './guards/student.guard';
 import { OperatorGuard } from './guards/operator.guard';
-import { PortalGuard } from './guards/guards/portal.guard';
+import { PortalGuard } from './guards/portal.guard';
 
 
 const routes: Routes = [
