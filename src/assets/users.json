@@ -1,0 +1,14 @@
+[
+    {
+        "_id": 1,
+        "authorization_level": "operator",
+        "granted_authorizations": [
+            "linkedin", "github"
+        ],
+
+        "password_hash": null,
+        
+        "personal_data": 5642,
+        "data": 1
+    }
+]
