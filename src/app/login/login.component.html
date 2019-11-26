@@ -1,1 +1,17 @@
-<p>login works!</p>
+<h2>Connexion</h2>
+<form #form="ngForm" (ngSubmit)="submit()">
+    <input type="email" email name="email" [(ngModel)]="user.mail"
+        placeholder="E-mail" required />
+    <input type="password" name="password" [(ngModel)]="user.password"
+        placeholder="Mot de passe" required />
+
+    <p [hidden]="!error" class="error-box">
+        Connexion impossible.
+        Veuillez vérifier vos identifiants.
+    </p>
+    <br [hidden]="error" />
+
+    <button type="submit" [disabled]="form.invalid">
+        Envoyer
+    </button>
+</form>
