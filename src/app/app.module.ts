@@ -9,7 +9,6 @@ import { LoginComponent } from './login/login.component';
 import { PortalComponent } from './portal/portal.component';
 import { StudentsListComponent } from './students-list/students-list.component';
 import { StudentsVizComponent } from './students-viz/students-viz.component';
-import { GDPRModalComponent } from './gdprmodal/gdprmodal.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { GDPRModalComponent } from './gdprmodal/gdprmodal.component';
     PortalComponent,
     StudentsListComponent,
     StudentsVizComponent,
-    GDPRModalComponent,
   ],
   imports: [
     BrowserModule,
