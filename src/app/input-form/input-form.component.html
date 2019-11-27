@@ -63,6 +63,7 @@
 
 <form #dataForm="ngForm" class="form data" (ngSubmit)="submitData()">
     <div class="provider" *ngFor="let provider of providers">
+        {{pName(provider)}} :
         <div class="setting" *ngFor="let setting of getSettings(provider)">
             <label [for]="'data-'+provider+'-'+setting">{{sName(setting)}}: </label>
             <input [name]="'data-'+provider+'-'+setting" type="text"
