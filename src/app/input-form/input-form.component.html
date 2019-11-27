@@ -1,1 +1,53 @@
-<p>input-form works!</p>
+<h2>Page de renseignements</h2>
+<h3>Autorisations</h3>
+
+<p>
+    Un champ vide indique que vous ne consentez pas à la collecte des données
+    pour ce réseau social.
+</p>
+
+<form #authForm="ngForm" class="form auth" (ngSubmit)="submitAuthorizations()">
+    <div class="provider" *ngFor="let provider of providers">
+        <div class="link">
+            <label [for]="provider">{{pName(provider)}}: </label>
+            <input #link="ngModel" [name]="provider" type="url"
+                [(ngModel)]="authorizations[provider]"
+                [placeholder]="'Lien du compte '+pName(provider)"
+            />
+            <button (click)="authorizations[provider] = ''">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+        <div class="privacy">
+            <div class="setting" *ngFor="let setting of getSettings(provider)">
+                <label [for]="provider+'-'+setting">{{sName(setting)}}: </label>
+                <input [name]="provider+'-'+setting" type="checkbox"
+                    [(ngModel)]="privacy[provider][setting]"
+                />
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="authForm.invalid">
+        <i class="fas fa-save"></i>
+        Sauvegarder
+    </button>
+</form>
+
+<h4>Données récoltées</h4>
+
+<form #dataForm="ngForm" class="form data" (ngSubmit)="submitData()">
+    <div class="provider" *ngFor="let provider of providers">
+        <div class="setting" *ngFor="let setting of getSettings(provider)">
+            <label [for]="'data-'+provider+'-'+setting">{{sName(setting)}}: </label>
+            <input [name]="'data-'+provider+'-'+setting" type="text"
+                [(ngModel)]="data[provider][setting]"
+            />
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="authForm.invalid">
+        <i class="fas fa-save"></i>
+        Sauvegarder
+    </button>
+</form>

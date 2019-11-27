@@ -50,4 +50,8 @@ export class UserDataService {
     return axios.patch('/api/user', changes)
       .then(() => void(0));
   }
+
+  anonymizeUser(userId: UserId): Promise<void> {
+    return new Promise(res => res(void(0)));
+  }
 }
