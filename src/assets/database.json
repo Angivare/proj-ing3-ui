@@ -13,6 +13,18 @@
             "linkedin": "http://linkedin.com/...",
             "github": "http://github.com/..."
         },
+
+        "privacy_settings": {
+            "linkedin": {
+                "job_title": true,
+                "company": true,
+                "work_area": true
+            },
+
+            "github": {
+                "technologies": true
+            }
+        },
         
         "personal_data": 5642
     },
@@ -20,10 +32,13 @@
     {
         "_type": "non-personal-data",
         "_id": 1,
-        "personal_id": 5642,
         
         "providers": {
-
+            "github": {
+                "technologies": [
+                    "PHP"
+                ]
+            }
         }
     },
 
@@ -37,7 +52,11 @@
         "lastname": "Keskin",
 
         "providers": {
-
+            "linkedin": {
+                "job_title": "Software Engineer",
+                "company": "Bull Schmidt Digital",
+                "work_area": "Pau, France"
+            }
         }
     }
 ]

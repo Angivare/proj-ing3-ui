@@ -33,7 +33,10 @@ export type UserModel = {
 
     // As defined by the student. undefined means unauthorized
     // The value gives the URL to inspect for data
-    authorizedProviders: ProviderMap<{
+    authorizedProviders: ProviderMap<string>,
+
+    // By-provider privacy settings
+    privacySettings: ProviderMap<{
         [key: string]: string
     }>,
 

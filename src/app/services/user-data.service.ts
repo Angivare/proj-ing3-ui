@@ -18,11 +18,12 @@ export class UserDataService {
       const pData = f(doc => doc._type == 'personal-data'
                                   && doc._id == user.personal_data);
 
-      const providers = Object.keys(npData).concat(Object.keys(pData))
+      const providers = Object.keys(npData.providers).concat(Object.keys(pData.providers))
                           .filter((v, i, self) => self.indexOf(v) === i);
       const providerData = {};
-      providers.forEach(p => providerData[p] =  { ...pData[p],
-                                                  ...npData[p] });
+      providers.forEach(p => providerData[p] =  { ...pData.providers[p],
+                                                  ...npData.providers[p] });
+      // ^ tout ça aurait dû être fait par le DBMS!
 
       return {
         userId: user._id,
@@ -35,8 +36,18 @@ export class UserDataService {
           lastName: pData.lastname,
         } : null,
         authorizedProviders: user.authorized_providers,
+        privacySettings: user.privacy_settings,
         providerData: providerData
       }
-    })
+    });
+  }
+
+  updateUser(changes: {
+    authorizedProviders?, privacySettings?, providerData?
+  }): Promise<void> {
+    return new Promise(res => res(void(0)));
+
+    return axios.patch('/api/user', changes)
+      .then(() => void(0));
   }
 }
