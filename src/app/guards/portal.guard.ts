@@ -13,9 +13,9 @@ export class PortalGuard implements CanActivate {
     public router: Router
   ) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): ActivationResponse {
+  canActivate(next: ActivatedRouteSnapshot,
+              state: RouterStateSnapshot): ActivationResponse
+  {
     const opts = next.data;
     const level = this.authService.getPrivilegeLevel();
 

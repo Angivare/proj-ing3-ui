@@ -12,9 +12,9 @@ export class PrivilegeLevelGuard implements CanActivate {
     public authService: AuthenticationService
   ) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): ActivationResponse {
+  canActivate(next: ActivatedRouteSnapshot,
+              state: RouterStateSnapshot): ActivationResponse
+  {
       const opts = next.data;
       const level = this.authService.getPrivilegeLevel();
 
