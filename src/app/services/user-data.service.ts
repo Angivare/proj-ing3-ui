@@ -8,6 +8,8 @@ import { stringify } from 'querystring';
 })
 export class UserDataService {
 
+  cache: {[key: number]: UserModel} = {}
+
   constructor() { }
 
   getUsers(tags: string[]): Promise<UserModel[]> {
@@ -22,6 +24,9 @@ export class UserDataService {
   }
 
   getUser(id: UserId): Promise<UserModel> {
+    if(id in this.cache)
+      return new Promise(res => res(this.cache[id]));
+
     return axios.get<{_type: string, _id: UserId, [k:string]: any}[]>
     ('/assets/database.json').then(resp => {
       const f = predicate => resp.data.find(predicate);
@@ -41,7 +46,7 @@ export class UserDataService {
         providerData = npData.providers;
       // ^ tout ça aurait dû être fait par le DBMS!
 
-      return {
+      const ret = {
         userId: user._id,
         privilegeLevel: PrivilegeLevel[user.privilege_level as string],
         authorizedTags: user.authorized_tags,
@@ -55,19 +60,33 @@ export class UserDataService {
         privacySettings: user.privacy_settings,
         providerData: providerData
       }
+
+      this.cache[user._id] = ret;
+      return ret;
     });
   }
 
-  updateUser(changes: {
+  updateUser(id: UserId, changes: {
     authorizedProviders?, privacySettings?, providerData?
   }): Promise<void> {
+    if(id in this.cache)
+      this.cache[id] = {
+        ...this.cache[id],
+        ...changes,
+      }
+
     return new Promise(res => res(void(0)));
 
-    return axios.patch('/api/user', changes)
+    return axios.patch(`/api/user/${id}`, changes)
       .then(() => void(0));
   }
 
   anonymizeUser(userId: UserId): Promise<void> {
+    if(userId in this.cache) {
+      this.cache[userId].personalData = null;
+      this.cache[userId].providerData.linkedin = {};
+    }
+
     return new Promise(res => res(void(0)));
   }
 }

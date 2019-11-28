@@ -77,7 +77,10 @@ export class InputFormComponent implements OnInit {
       privacySettings: this.privacy
     };
 
-    this.userService.updateUser(userChanges);
+    this.userService.updateUser(
+      this.authService.data.user_id,
+      userChanges
+    );
   }
 
   submitData(): void {
@@ -85,7 +88,10 @@ export class InputFormComponent implements OnInit {
       providerData: this.data
     };
 
-    this.userService.updateUser(userChanges);
+    this.userService.updateUser(
+      this.authService.data.user_id,
+      userChanges
+    );
   }
 
   anonymize(): void {
