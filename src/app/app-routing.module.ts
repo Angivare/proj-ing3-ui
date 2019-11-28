@@ -11,21 +11,35 @@ import { PrivilegeLevel as PL } from './services/user-data.model';
 
 
 const routes: Routes = [
-  {path: '', component: PortalComponent,
+  {
+    path: '', component: PortalComponent,
     canActivate: [PortalGuard], data: {
       Guest: '/login',
       Student: '/form',
       Operator: '/stats',
       Admin: '/stats'
-    }},
-  {path: 'login', component: LoginComponent,
-    canActivate: [PrivilegeLevelGuard], data: {level: [PL.Guest, PL.Admin]}},
-  {path: 'form', component: InputFormComponent,
-    canActivate: [PrivilegeLevelGuard], data: {level: [PL.Student, PL.Admin]}},
-  {path: 'students', component: StudentsListComponent,
-    canActivate: [PrivilegeLevelGuard], data: {level: [PL.Operator, PL.Admin]}},
-  {path: 'stats', component: StudentsVizComponent,
-    canActivate: [PrivilegeLevelGuard], data: {level: [PL.Operator, PL.Admin]}}
+    }
+  },
+  {
+    path: 'login', component: LoginComponent,
+    canActivate: [PrivilegeLevelGuard],
+    data: {level: [PL.Guest, PL.Admin]}
+  },
+  {
+    path: 'form', component: InputFormComponent,
+    canActivate: [PrivilegeLevelGuard],
+    data: {level: [PL.Student, PL.Admin]}
+  },
+  {
+    path: 'students', component: StudentsListComponent,
+    canActivate: [PrivilegeLevelGuard],
+    data: {level: [PL.Operator, PL.Admin]}
+  },
+  {
+    path: 'stats', component: StudentsVizComponent,
+    canActivate: [PrivilegeLevelGuard],
+    data: {level: [PL.Operator, PL.Admin]}
+  }
 ];
 
 @NgModule({
