@@ -50,8 +50,6 @@ export class InputFormComponent implements OnInit {
       this.authorizations = user.authorizedProviders;
       this.privacy = user.privacySettings;
       this.data = user.providerData;
-
-      console.log(user);
     });
   }
 
