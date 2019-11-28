@@ -11,9 +11,10 @@ export class UserDataService {
   constructor() { }
 
   getUsers(tags: string[]): Promise<UserModel[]> {
-    return axios.get<{_type: string, _id: UserId, tags: string[]}[]>
+    return axios.get<{_type: string, _id: UserId, tags: string[], privilege_level?: string}[]>
     ('/assets/database.json').then(resp => resp.data.filter(
-      doc => doc._type == 'user' && doc.tags.some(t => tags.includes(t))
+      doc => doc._type == 'user' && doc.privilege_level === 'Student'
+          && doc.tags.some(t => tags.includes(t))
     ).map(doc => doc._id))
     .then(userIds => Promise.all(
       userIds.map(id => this.getUser(id))

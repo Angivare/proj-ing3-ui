@@ -42,7 +42,7 @@
                 </button>
             </div>
             <div class="settings">
-                <div class="setting" *ngFor="let setting of getSettings(provider)">
+                <div class="setting" *ngFor="let setting of settings[provider]">
                     <label [for]="provider+'-'+setting">{{sName(setting)}}: </label>
                     <input [name]="provider+'-'+setting" type="checkbox"
                         [(ngModel)]="privacy[provider][setting]"
@@ -70,7 +70,7 @@
         <div class="provider" *ngFor="let provider of providers">
             {{pName(provider)}} :
             <div class="settings">
-                <div class="setting" *ngFor="let setting of getSettings(provider)">
+                <div class="setting" *ngFor="let setting of settings[provider]">
                     <label [for]="'data-'+provider+'-'+setting">{{sName(setting)}}: </label>
                     <input [name]="'data-'+provider+'-'+setting" type="text"
                         [(ngModel)]="data[provider][setting]"

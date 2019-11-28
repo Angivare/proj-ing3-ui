@@ -16,6 +16,10 @@ const sName = {
   'technologies': 'Technologies'
 };
 
+const providerMap = () => ({
+  linkedin: {}, github: {}
+})
+
 @Component({
   selector: 'app-input-form',
   templateUrl: './input-form.component.html',
@@ -31,11 +35,19 @@ export class InputFormComponent implements OnInit {
   }
 
   providers = ['linkedin', 'github'];
+  settings = {
+    linkedin: [
+      'job_title', 'company', 'work_area'
+    ],
+    github: [
+      'technologies'
+    ]
+  }
   authorizations: ProviderMap<string> = {};
   privacy: ProviderMap<{
     [key: string]: string
-  }> = {};
-  data: ProviderMap<any> = {};
+  }> = providerMap();
+  data: ProviderMap<any> = providerMap();
 
   constructor(
     public userService: UserDataService,
@@ -48,15 +60,15 @@ export class InputFormComponent implements OnInit {
       this.authService.data.user_id
     ).then(user => {
       this.authorizations = user.authorizedProviders;
-      this.privacy = user.privacySettings;
-      this.data = user.providerData;
+      this.privacy = {
+        ...providerMap(),
+        ...user.privacySettings
+      };
+      this.data = {
+        ...providerMap(),
+        ...user.providerData
+      };
     });
-  }
-
-  getSettings(provider: string): string[] {
-    return Object.keys(
-      this.privacy[provider] || {}
-    );
   }
 
   submitAuthorizations(): void {
