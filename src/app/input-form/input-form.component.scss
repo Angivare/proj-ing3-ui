@@ -1,15 +1,15 @@
 .block.rgpd {
     padding: .5em;
     background: #fafafa;
-}
 
-.block.rgpd > div {
-    padding-left: 1em;
-}
+    & >div {
+        padding-left: 1em;
+    }
 
-.block.rgpd > h3 {
-    margin: 0;
-    text-align: center;
+    & > h3 {
+        margin: 0;
+        text-align: center;
+    }
 }
 
 .block > form {
