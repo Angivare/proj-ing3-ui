@@ -1,1 +1,6 @@
-<p>students-list works!</p>
+<h2>Liste des élèves</h2>
+<div class="list-container">
+    <div class="student" *ngFor="let student of users">
+        {{student.personalData.firstName}} {{student.personalData.lastName}}
+    </div>
+</div>

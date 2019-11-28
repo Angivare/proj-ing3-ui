@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { UserId, UserModel, PrivilegeLevel, ProviderMap } from './user-data.model';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,16 @@ import { UserId, UserModel, PrivilegeLevel, ProviderMap } from './user-data.mode
 export class UserDataService {
 
   constructor() { }
+
+  getUsers(tags: string[]): Promise<UserModel[]> {
+    return axios.get<{_type: string, _id: UserId, tags: string[]}[]>
+    ('/assets/database.json').then(resp => resp.data.filter(
+      doc => doc._type == 'user' && doc.tags.some(t => tags.includes(t))
+    ).map(doc => doc._id))
+    .then(userIds => Promise.all(
+      userIds.map(id => this.getUser(id))
+    ));
+  }
 
   getUser(id: UserId): Promise<UserModel> {
     return axios.get<{_type: string, _id: UserId, [k:string]: any}[]>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserDataService } from '../services/user-data.service';
+import { AuthenticationService } from '../services/authentication.service';
+import { UserModel } from '../services/user-data.model';
 
 @Component({
   selector: 'app-students-list',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentsListComponent implements OnInit {
 
-  constructor() { }
+  users: UserModel[];
+
+  constructor(
+    public userService: UserDataService,
+    public authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
+    this.userService.getUsers(
+      this.authService.data.authorized_tags
+    ).then(
+      users => this.users = users
+    );
   }
 
 }
