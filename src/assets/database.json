@@ -2,7 +2,7 @@
     {
         "_type": "user",
         "_id": 1,
-        "privilege_level": "Operator",
+        "privilege_level": "Student",
 
         "authorized_tags": ["icc"],
         "tags": ["icc"],
@@ -42,7 +42,6 @@
         }
     },
 
-
     {
         "_type": "personal-data",
         "_id": 5642,
@@ -58,5 +57,102 @@
                 "work_area": "Pau, France"
             }
         }
+    },
+
+    {
+        "_type": "user",
+        "_id": 2,
+        "privilege_level": "Student",
+
+        "authorized_tags": [],
+        "tags": ["icc"],
+
+        "password_hash": null,
+        
+        "authorized_providers": {
+            "linkedin": "http://linkedin.com/...",
+            "github": ""
+        },
+
+        "privacy_settings": {
+            "linkedin": {
+                "job_title": true,
+                "company": true,
+                "work_area": true
+            },
+
+            "github": {
+                "technologies": false
+            }
+        },
+        
+        "personal_data": 1452
+    },
+
+    {
+        "_type": "personal-data",
+        "_id": 1452,
+        
+        "mail": "student@eisti.eu",
+        "firstname": "Elliott",
+        "lastname": "Villegas",
+
+        "providers": {
+            "linkedin": {
+                "job_title": null,
+                "company": null,
+                "work_area": "Pau, France"
+            }
+        }
+    },
+
+    {
+        "_type": "non-personal-data",
+        "_id": 2,
+
+        "providers": {
+
+        }
+    },
+
+    {
+        "_type": "user",
+        "_id": 4,
+        "privilege_level": "Admin",
+
+        "authorized_tags": ["icc", "ia"],
+        "tags": [],
+
+        "password_hash": null,
+        
+        "authorized_providers": {
+        },
+
+        "privacy_settings": {
+        },
+        
+        "personal_data": 666
+    },
+
+    {
+        "_type": "personal-data",
+        "_id": 666,
+        
+        "mail": "student@eisti.eu",
+        "firstname": "Elliott",
+        "lastname": "Villegas",
+
+        "providers": {
+        }
+    },
+
+    {
+        "_type": "non-personal-data",
+        "_id": 4,
+
+        "providers": {
+
+        }
     }
+    
 ]
