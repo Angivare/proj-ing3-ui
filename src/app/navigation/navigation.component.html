@@ -4,4 +4,9 @@
             {{link}}
         </a>
     </li>
+    <li *ngIf="connected">
+        <a (click)="logout()" [routerLink]="[]">
+            Déconnexion
+        </a>
+    </li>
 </ul>

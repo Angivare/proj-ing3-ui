@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { PrivilegeLevel } from '../services/user-data.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -10,10 +11,11 @@ import { PrivilegeLevel } from '../services/user-data.model';
 export class NavigationComponent implements OnInit {
 
   constructor(
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    public router: Router
   ) { }
 
-  get dests() {
+  get dests(): object {
     const level = this.authService.getPrivilegeLevel();
     return {
       Guest: {},
@@ -31,8 +33,17 @@ export class NavigationComponent implements OnInit {
     }[PrivilegeLevel[level]];
   }
 
-  get links() {
+  get links(): string[] {
     return Object.keys(this.dests);
+  }
+
+  get connected(): boolean {
+    return this.authService.getPrivilegeLevel() > PrivilegeLevel.Guest;
+  }
+
+  logout(): void {
+    this.authService.logout()
+    .then(() => this.router.navigate(['/']))
   }
 
   ngOnInit() {}
