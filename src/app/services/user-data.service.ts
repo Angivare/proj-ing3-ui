@@ -27,14 +27,18 @@ export class UserDataService {
       const f = predicate => resp.data.find(predicate);
       const user = f(doc => doc._type == 'user' && doc._id == id);
       const npData = f(doc => doc._type == 'non-personal-data' && doc._id == id);
-      const pData = f(doc => doc._type == 'personal-data'
-                                  && doc._id == user.personal_data);
+      const pData = user.personal_data ?
+        f(doc => doc._type == 'personal-data' && doc._id == user.personal_data)
+        : null;
 
-      const providers = Object.keys(npData.providers).concat(Object.keys(pData.providers))
-                          .filter((v, i, self) => self.indexOf(v) === i);
-      const providerData = {};
-      providers.forEach(p => providerData[p] =  { ...pData.providers[p],
-                                                  ...npData.providers[p] });
+      let providerData = {};
+      if(pData) {
+        const providers = Object.keys(npData.providers).concat(Object.keys(pData.providers))
+              .filter((v, i, self) => self.indexOf(v) === i);
+        providers.forEach(p => providerData[p] =  { ...pData.providers[p],
+                                      ...npData.providers[p] });
+      } else
+        providerData = npData.providers;
       // ^ tout ça aurait dû être fait par le DBMS!
 
       return {
