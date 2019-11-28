@@ -1,9 +1,12 @@
 <h2>Liste des élèves</h2>
 <div class="list-container">
     <div class="student" *ngFor="let student of users">
-        <span class="name">
+        <span class="name" *ngIf="student.personalData">
             {{student.personalData.firstName}}
             {{student.personalData.lastName}}
+        </span>
+        <span class="name" *ngIf="!student.personalData">
+            Anonyme
         </span>
         :
         <span class="position" *ngIf="hasJob(student)">
