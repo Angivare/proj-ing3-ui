@@ -9,9 +9,9 @@
         Connexion impossible.
         Veuillez vérifier vos identifiants.
     </p>
-    <br [hidden]="error" />
 
-    <button type="submit" [disabled]="form.invalid">
+    <button type="submit" [disabled]="form.invalid"
+            [class]="form.touched && form.invalid && 'invalid'">
         Envoyer
     </button>
 </form>

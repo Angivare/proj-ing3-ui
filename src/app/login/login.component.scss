@@ -1,0 +1,23 @@
+input {
+    &:first-of-type {
+        margin-right: 1em;
+    }
+
+    outline: none;
+
+    &.ng-invalid {
+        border: 2px solid salmon;
+    }
+    &.ng-valid {
+        border: 2px solid green;
+    }
+}
+
+button {
+    margin-top: 1em;
+    display: block;
+
+    &.invalid {
+        border: 1px solid salmon;
+    }
+}
