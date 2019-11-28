@@ -1,6 +1,15 @@
 <h2>Liste des élèves</h2>
 <div class="list-container">
     <div class="student" *ngFor="let student of users">
-        {{student.personalData.firstName}} {{student.personalData.lastName}}
+        <span class="name">
+            {{student.personalData.firstName}}
+            {{student.personalData.lastName}}
+        </span>
+        :
+        <span class="position">
+            {{student.providerData.linkedin.job_title}}
+            at
+            {{student.providerData.linkedin.company}}
+        </span>
     </div>
 </div>
