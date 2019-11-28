@@ -6,10 +6,13 @@
             {{student.personalData.lastName}}
         </span>
         :
-        <span class="position">
+        <span class="position" *ngIf="hasJob(student)">
             {{student.providerData.linkedin.job_title}}
             at
             {{student.providerData.linkedin.company}}
+        </span>
+        <span class="position" *ngIf="!hasJob(student)">
+            Sans poste
         </span>
     </div>
 </div>

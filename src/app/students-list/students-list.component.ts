@@ -25,4 +25,10 @@ export class StudentsListComponent implements OnInit {
     );
   }
 
+  hasJob(student: UserModel): boolean {
+    return student.providerData.linkedin &&
+            student.providerData.linkedin.job_title &&
+            student.providerData.linkedin.company
+  }
+
 }
