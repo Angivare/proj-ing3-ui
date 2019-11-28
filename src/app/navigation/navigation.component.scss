@@ -12,3 +12,7 @@ a, a:visited {
     color: inherit;
     text-decoration: none;
 }
+
+a:hover {
+    text-shadow: 0 0 10px grey;
+}
