@@ -18,12 +18,6 @@ export class JwtInterceptor implements HttpInterceptor {
           })
       })
 
-    return next.handle(req)
-    .pipe(
-        catchError(error => {
-        console.log("Une erreur s'est produite");
-        console.log(error); // Récupérer les erreurs et les affichers
-        return Observable.throw(error); // Retourner l'erreur dans tous les cas
-      })) as any;
-    }
+    return next.handle(req);
+  }
 }
