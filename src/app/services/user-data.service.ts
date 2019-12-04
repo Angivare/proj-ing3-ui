@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import axios from 'axios';
 import { UserId, UserModel, PrivilegeLevel, ProviderMap } from './user-data.model';
 import { stringify } from 'querystring';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +10,14 @@ export class UserDataService {
 
   cache: {[key: number]: UserModel} = {}
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getUsers(tags: string[]): Promise<UserModel[]> {
-    return axios.get<{_type: string, _id: UserId, tags: string[], privilege_level?: string}[]>
-    ('/assets/database.json').then(resp => resp.data.filter(
+    return this.http.get<{_type: string, _id: UserId, tags: string[], privilege_level?: string}[]>
+    ('/assets/database.json').toPromise()
+    .then(data => data.filter(
       doc => doc._type == 'user' && doc.privilege_level === 'Student'
           && doc.tags.some(t => tags.includes(t))
     ).map(doc => doc._id))
@@ -27,9 +30,10 @@ export class UserDataService {
     if(id in this.cache)
       return new Promise(res => res(this.cache[id]));
 
-    return axios.get<{_type: string, _id: UserId, [k:string]: any}[]>
-    ('/assets/database.json').then(resp => {
-      const f = predicate => resp.data.find(predicate);
+    return this.http.get<{_type: string, _id: UserId, [k:string]: any}[]>
+    ('/assets/database.json').toPromise()
+    .then(docs => {
+      const f = predicate => docs.find(predicate);
       const user = f(doc => doc._type == 'user' && doc._id == id);
       const npData = f(doc => doc._type == 'non-personal-data' && doc._id == id);
       const pData = user.personal_data ?
@@ -77,7 +81,8 @@ export class UserDataService {
 
     return new Promise(res => res(void(0)));
 
-    return axios.patch(`/api/user/${id}`, changes)
+    return this.http.patch(`/api/user/${id}`, changes)
+      .toPromise()
       .then(() => void(0));
   }
 

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import axios from 'axios';
 import * as jwt_decode from 'jwt-decode';
 import { UserId, PrivilegeLevel } from './user-data.model';
+import { HttpClient, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,21 +17,25 @@ export class AuthenticationService {
     authorized_tags: string[]
   } = null;
 
-  constructor() { }
+  constructor(
+    public http: HttpClient
+  ) { }
 
   // Le fait de faire une requête sur un nom spécifique simule
   // le fonctionnement d'une API qui vérifie les valeurs & renvoie
   // un JWT derrière... La clef secrète est 'my-secret'
   login(mail: string, password: string): Promise<boolean> {
-    return axios.get<string>(`/assets/auth/${mail}-${password}`)
-      .then(resp => {
-        this.token = resp.data;
+    return this.http.get<string>(`/assets/auth/${mail}-${password}`,
+                                 {responseType: 'text' as 'json'})
+      .toPromise()
+      .then(token => {
+        this.token = token;
         const data: {
           user_id: number,
           name: string,
           privilege_level: string,
           authorized_tags: string[]
-        } = jwt_decode(resp.data);
+        } = jwt_decode(token);
         this.data = {
           ...data,
           privilege_level: PrivilegeLevel[data.privilege_level]
